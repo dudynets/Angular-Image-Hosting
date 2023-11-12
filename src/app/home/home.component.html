@@ -1,0 +1,17 @@
+<div class="home">
+  <nz-space class="home__uploader" nzDirection="vertical">
+    <ng-container *ngIf="user$ | async as user; else noUserTemplate">
+      <h1 *nzSpaceItem>Привіт, {{ user.displayName }}</h1>
+    </ng-container>
+    <ng-template #noUserTemplate>
+      <h1 *nzSpaceItem>Привіт, неавторизований користувач</h1>
+    </ng-template>
+    <ih-uploader *nzSpaceItem />
+    <nz-divider *nzSpaceItem />
+  </nz-space>
+
+  <nz-space class="home__feed" nzDirection="vertical">
+    <h1 *nzSpaceItem>Останні зображення</h1>
+    <ih-feed *nzSpaceItem [feedType]="FeedType.All" />
+  </nz-space>
+</div>

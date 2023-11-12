@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.feed {
+  display: flex;
+  width: 100%;
+  position: relative;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  nz-card {
+    cursor: pointer;
+  }
+
+  nz-spin,
+  nz-empty {
+    margin: 0 auto;
+    padding: 50px 0;
+  }
+
+  &__card {
+    width: calc(100% / 3 - 16px) !important;
+
+    @media (max-width: 1200px) {
+      width: calc(100% / 2 - 12px) !important;
+    }
+
+    @media (max-width: 768px) {
+      width: 100% !important;
+    }
+  }
+}

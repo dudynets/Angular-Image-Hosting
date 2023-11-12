@@ -1,0 +1,126 @@
+:host {
+  display: block;
+  flex: 1;
+}
+
+.image {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+  gap: 32px;
+
+  &__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 70%;
+
+    &-header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      &-title {
+        flex: 1;
+        font-size: 2em;
+        font-weight: 500;
+        border: none;
+        background: none;
+        outline: none;
+        padding: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    &-meta {
+      overflow: hidden;
+      max-width: 100%;
+
+      .ant-space-item {
+        overflow: hidden;
+      }
+
+      nz-avatar {
+        flex-shrink: 0;
+      }
+
+      &-author {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        overflow: hidden;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        span {
+          font-size: 1em;
+          font-weight: 500;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      nz-divider {
+        border-color: #757575;
+        opacity: 0.5;
+      }
+
+      &-timestamp {
+        color: #757575;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &-image {
+      width: 100%;
+      border-radius: 2px;
+      border: 1px solid #d9d9d9;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+      height: 600px;
+      object-fit: contain;
+    }
+  }
+
+  &__sidebar {
+    width: 30%;
+
+    &-header {
+      &-title {
+        margin: 0;
+      }
+    }
+
+    nz-empty {
+      margin: 0 auto;
+      padding: 50px 0;
+    }
+  }
+
+  &__loading {
+    height: 100vh;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    &__main {
+      width: 100%;
+    }
+
+    &__sidebar {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+:host {
+  flex: 1;
+}
+
+.liked {
+  padding: 24px;
+
+  &__feed {
+    width: 100%;
+  }
+}

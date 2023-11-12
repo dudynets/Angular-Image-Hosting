@@ -1,0 +1,30 @@
+<div class="user">
+  <ng-container *ngIf="!loading && user; else loadingTemplate">
+    <nz-space class="user__feed" nzDirection="vertical">
+      <div *nzSpaceItem class="user__feed-info">
+        <nz-avatar
+          [nzSrc]="user.userPhotoURL || undefined"
+          nzSize="large"
+        ></nz-avatar>
+
+        <div class="user__feed-info-details">
+          <h1>
+            {{ user.userDisplayName }}
+          </h1>
+          <p>
+            Email:
+            <a [href]="'mailto:' + user.userEmail">{{ user.userEmail }}</a>
+          </p>
+        </div>
+      </div>
+
+      <nz-divider *nzSpaceItem />
+
+      <ih-feed *nzSpaceItem [feedType]="FeedType.User" [userId]="userId" />
+    </nz-space>
+  </ng-container>
+
+  <ng-template #loadingTemplate>
+    <nz-spin nzSimple nzTip="Завантаження..." [nzSize]="'large'"></nz-spin>
+  </ng-template>
+</div>

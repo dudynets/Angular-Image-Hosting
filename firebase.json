@@ -1,0 +1,23 @@
+{
+  "firestore": {
+    "rules": "firebase/rules/firestore.rules",
+    "indexes": "firebase/indexes/firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "dist/image-hosting",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "firebase/rules/storage.rules"
+  }
+}

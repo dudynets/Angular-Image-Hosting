@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  width: 100%;
+  flex: 1;
+}
+
+.user {
+  display: flex;
+  width: 100%;
+  padding: 24px;
+
+  &__feed {
+    width: 100%;
+
+    &-info {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      overflow: hidden;
+
+      nz-avatar {
+        height: 56px;
+        width: 56px;
+        flex-shrink: 0;
+      }
+
+      &-details {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+        justify-content: center;
+        overflow: hidden;
+
+        h1,
+        p {
+          margin: 0;
+          line-height: 1.1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
+
+nz-spin {
+  margin: 0 auto;
+  padding: 50px 0;
+}

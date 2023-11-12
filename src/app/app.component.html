@@ -1,0 +1,16 @@
+<ng-container *ngIf="networkStatus; else offlineTemplate">
+  <nz-layout class="app">
+    <ih-header />
+    <nz-content #content>
+      <router-outlet />
+      <ih-footer />
+    </nz-content>
+  </nz-layout>
+</ng-container>
+
+<ng-template #offlineTemplate>
+  <div class="offline">
+    <h1>Ви не підключені до інтернету!</h1>
+    <p>Перевірте підключення до інтернету, щоб продовжити роботу з додатком.</p>
+  </div>
+</ng-template>

@@ -1,0 +1,46 @@
+{
+  "name": "image-hosting",
+  "version": "1.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "firebase:deploy": "ng build --configuration=production && firebase deploy",
+    "firebase:deploy:hosting": "ng build --configuration=production && firebase deploy --only hosting",
+    "firebase:deploy:firestore-rules": "firebase deploy --only firestore:rules",
+    "firebase:deploy:firestore-indexes": "firebase deploy --only firestore:indexes",
+    "firebase:deploy:storage-rules": "firebase deploy --only storage"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^17.0.2",
+    "@angular/cdk": "^17.0.0",
+    "@angular/common": "^17.0.2",
+    "@angular/compiler": "^17.0.2",
+    "@angular/core": "^17.0.2",
+    "@angular/fire": "16.0.0",
+    "@angular/forms": "^17.0.2",
+    "@angular/platform-browser": "^17.0.2",
+    "@angular/platform-browser-dynamic": "^17.0.2",
+    "@angular/router": "^17.0.2",
+    "@angular/service-worker": "^17.0.2",
+    "@ngxs/store": "^3.8.1",
+    "@syncfusion/ej2-angular-image-editor": "^23.1.43",
+    "@syncfusion/ej2-dropdowns": "^23.1.44",
+    "@types/uuid": "^9.0.7",
+    "date-fns": "^2.30.0",
+    "ng-zorro-antd": "16.2.2",
+    "prettier": "^3.0.3",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.1",
+    "zone.js": "~0.14.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.0.0",
+    "@angular/cli": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.2",
+    "@ngxs/devtools-plugin": "^3.8.1",
+    "typescript": "~5.2.2"
+  }
+}

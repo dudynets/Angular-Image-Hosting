@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  flex: 1;
+}
+
+.home {
+  padding: 24px;
+
+  &__uploader,
+  &__feed {
+    width: 100%;
+  }
+}

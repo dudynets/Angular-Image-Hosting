@@ -1,0 +1,17 @@
+{
+  "name": "Хостинг зображень",
+  "short_name": "Хостинг зображень",
+  "theme_color": "#3fa9ff",
+  "background_color": "#f0f2f5",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

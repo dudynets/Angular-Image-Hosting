@@ -1,0 +1,101 @@
+<nz-page-header [nzGhost]="false">
+  <nz-page-header-title [routerLink]="['/']">
+    <span nz-icon nzType="file-image" nzTheme="fill"></span>
+    Хостинг зображень
+  </nz-page-header-title>
+  <nz-page-header-extra>
+    <nz-space>
+      <ng-container *ngIf="user$ | async as user; else notLoggedInTemplate">
+        <button
+          *nzSpaceItem
+          nz-button
+          nzType="default"
+          [routerLink]="['/user', user.uid]"
+          routerLinkActive="ant-btn-primary"
+        >
+          <span nz-icon nzType="file-image" nzTheme="fill"></span>
+          Мої фото
+        </button>
+
+        <button
+          *nzSpaceItem
+          nz-button
+          nzType="default"
+          [routerLink]="['/profile', 'liked']"
+          routerLinkActive="ant-btn-primary"
+        >
+          <span nz-icon nzType="heart" nzTheme="fill"></span>
+          Вподобані
+        </button>
+
+        <nz-avatar
+          *nzSpaceItem
+          nzIcon="user"
+          [nzSrc]="user.photoURL || undefined"
+          nz-popover
+          [nzPopoverContent]="userInfoPopoverTemplate"
+          nzPopoverPlacement="bottomRight"
+          [nzPopoverArrowPointAtCenter]="false"
+        ></nz-avatar>
+
+        <ng-template #userInfoPopoverTemplate>
+          <div class="user-info-popover">
+            <nz-space nzDirection="vertical">
+              <nz-space *nzSpaceItem nzSize="middle" nzAlign="center">
+                <nz-avatar
+                  *nzSpaceItem
+                  nzSize="large"
+                  nzIcon="user"
+                  [nzSrc]="user.photoURL || undefined"
+                ></nz-avatar>
+
+                <h3 *nzSpaceItem>Привіт,<br />{{ user.displayName }}</h3>
+              </nz-space>
+
+              <p *nzSpaceItem>
+                <strong>Email:</strong>
+                {{ user.email }}
+              </p>
+
+              <button
+                *nzSpaceItem
+                nz-button
+                nzType="primary"
+                nzDanger
+                nzBlock
+                (click)="logout()"
+              >
+                <span nz-icon nzType="logout" nzTheme="outline"></span>
+                Вийти
+              </button>
+            </nz-space>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #notLoggedInTemplate>
+        <button
+          *nzSpaceItem
+          nz-button
+          nzType="primary"
+          nz-popover
+          nzPopoverTitle="Увійти"
+          [nzPopoverContent]="loginPopoverTemplate"
+          nzPopoverPlacement="bottomRight"
+        >
+          <span nz-icon nzType="login" nzTheme="outline"></span>
+          Увійти
+        </button>
+      </ng-template>
+    </nz-space>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<nz-divider />
+
+<ng-template #loginPopoverTemplate>
+  <button nz-button nzType="primary" nzBlock (click)="loginWithGoogle()">
+    <span nz-icon nzType="google" nzTheme="outline"></span>
+    Увійти через Google
+  </button>
+</ng-template>

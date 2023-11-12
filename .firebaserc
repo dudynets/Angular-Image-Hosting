@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "image-hosting-fbaf1"
+  },
+  "targets": {
+    "image-hosting-fbaf1": {
+      "hosting": {
+        "image-hosting": [
+          "image-hosting-fbaf1"
+        ]
+      }
+    }
+  }
+}

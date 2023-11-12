@@ -1,0 +1,11 @@
+.footer {
+  padding: 24px 24px calc(env(safe-area-inset-bottom) + 24px);
+
+  p {
+    margin: 0;
+  }
+}
+
+.divider {
+  margin: 0;
+}

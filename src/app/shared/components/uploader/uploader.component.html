@@ -1,0 +1,68 @@
+<div class="uploader">
+  <ng-container *ngIf="!pendingUploadFile; else imageEditorTemplate">
+    <nz-upload
+      nzType="drag"
+      [nzAccept]="supportedFileTypes"
+      [nzMultiple]="false"
+      [nzShowUploadList]="false"
+      [nzSize]="fileSizeLimit"
+      [nzBeforeUpload]="handleUpload.bind(this)"
+      [nzDisabled]="!(user$ | async)"
+    >
+      <ng-container *ngIf="user$ | async; else notLoggedInTemplate">
+        <p class="ant-upload-drag-icon">
+          <span nz-icon nzType="file-image" nzTheme="outline"></span>
+        </p>
+        <h3 class="ant-upload-text">
+          Натисніть або перетягніть зображення в цю область для відвантаження
+        </h3>
+        <p class="ant-upload-hint">
+          Підтримувані формати: {{ supportedFileTypesString }}. Максимальний
+          розмір файлу: {{ fileSizeLimit | nzBytes: 0 : 'KB' }}
+        </p>
+      </ng-container>
+
+      <ng-template #notLoggedInTemplate>
+        <p class="ant-upload-drag-icon">
+          <span nz-icon nzType="login" nzTheme="outline"></span>
+        </p>
+        <h3 class="ant-upload-text">Увійдіть, щоб завантажити зображення</h3>
+        <p class="ant-upload-hint">
+          Маючи обліковий запис Ви зможете ще й вподобувати їх та коментувати
+        </p>
+      </ng-template>
+    </nz-upload>
+  </ng-container>
+
+  <ng-template #imageEditorTemplate>
+    <nz-space nzSize="large" nzDirection="vertical" class="uploader__editor">
+      <ejs-imageeditor
+        #imageEditor
+        *nzSpaceItem
+        (created)="handleImageEditorInit()"
+        (fileOpened)="editorFileOpened = true"
+        class="uploader__editor-image"
+        locale="uk-UA"
+        [class.uploader__editor-image--hidden]="!editorFileOpened"
+      />
+
+      <nz-space *nzSpaceItem class="uploader__editor-actions" nzAlign="center">
+        <button
+          *nzSpaceItem
+          nz-button
+          nzType="primary"
+          nzDanger
+          (click)="discardUpload()"
+        >
+          <span nz-icon nzType="close" nzTheme="outline"></span>
+          Скасувати
+        </button>
+
+        <button *nzSpaceItem nz-button nzType="primary" (click)="publish()">
+          <span nz-icon nzType="send" nzTheme="outline"></span>
+          Опублікувати
+        </button>
+      </nz-space>
+    </nz-space>
+  </ng-template>
+</div>

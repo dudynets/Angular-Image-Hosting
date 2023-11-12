@@ -1,0 +1,43 @@
+nz-page-header-extra {
+  display: flex;
+}
+
+nz-page-header-title {
+  cursor: pointer;
+
+  span {
+    margin-right: 8px;
+  }
+}
+
+nz-avatar {
+  margin: 0 0 0 14px !important;
+  cursor: pointer;
+}
+
+.user-info-popover {
+  nz-avatar {
+    margin: 0 !important;
+  }
+
+  h3 {
+    margin: 0;
+    line-height: 1.2em;
+  }
+
+  p {
+    margin: 0;
+
+    strong {
+      font-weight: 500;
+    }
+  }
+
+  button {
+    margin-top: 0.5em;
+  }
+}
+
+nz-divider {
+  margin: 0;
+}

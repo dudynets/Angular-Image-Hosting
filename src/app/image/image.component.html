@@ -1,0 +1,202 @@
+<nz-space class="image">
+  <ng-container *ngIf="image; else imageLoadingTemplate">
+    <nz-space
+      class="image__main"
+      nzDirection="vertical"
+      nzSize="middle"
+      [style.--imageURL]="'url(' + image.imagePublicURL + ')'"
+    >
+      <nz-space
+        class="image__main-header"
+        *nzSpaceItem
+        nzDirection="horizontal"
+      >
+        <input
+          [readOnly]="!isImageAuthor"
+          type="text"
+          class="image__main-header-title"
+          [formControl]="titleFormControl"
+          placeholder="Без назви"
+        />
+
+        <button
+          nz-button
+          [nzType]="isImageLiked ? 'primary' : 'default'"
+          class="image__main-header-like"
+          [disabled]="!(user$ | async)"
+          [nzLoading]="likeLoading"
+          (click)="toggleLike()"
+        >
+          <span
+            nz-icon
+            nzType="heart"
+            [nzTheme]="isImageLiked ? 'fill' : 'outline'"
+          ></span>
+          {{ likesCount }}
+        </button>
+
+        <button
+          nz-button
+          nzType="default"
+          class="image__main-header-actions"
+          nz-dropdown
+          [nzDropdownMenu]="menu"
+          nzPlacement="bottomRight"
+        >
+          <span nz-icon nzType="plus-circle" nzTheme="outline"></span> Дії
+        </button>
+
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="copyLink()">
+              <nz-space>
+                <span
+                  *nzSpaceItem
+                  nz-icon
+                  nzType="copy"
+                  nzTheme="outline"
+                ></span>
+                <span *nzSpaceItem>Скопіювати посилання</span>
+              </nz-space>
+            </li>
+
+            <li nz-menu-item (click)="openImageFile()">
+              <nz-space>
+                <span
+                  *nzSpaceItem
+                  nz-icon
+                  nzType="file-image"
+                  nzTheme="outline"
+                ></span>
+                <span *nzSpaceItem>Відкрити файл у новій вкладці</span>
+              </nz-space>
+            </li>
+
+            <ng-container *ngIf="isImageAuthor">
+              <li nz-menu-item nzDanger (click)="deleteImage()">
+                <nz-space>
+                  <span
+                    *nzSpaceItem
+                    nz-icon
+                    nzType="delete"
+                    nzTheme="outline"
+                  ></span>
+                  <span *nzSpaceItem>Видалити зображення</span>
+                </nz-space>
+              </li>
+            </ng-container>
+          </ul>
+        </nz-dropdown-menu>
+      </nz-space>
+
+      <nz-space class="image__main-meta" *nzSpaceItem nzDirection="horizontal">
+        <div
+          class="image__main-meta-author"
+          [routerLink]="['/user', image.imageAuthorId]"
+          *nzSpaceItem
+        >
+          <nz-avatar
+            nz-icon="user"
+            [nzSrc]="image.imageAuthorAvatar"
+          ></nz-avatar>
+
+          <span>{{ image.imageAuthorName }}</span>
+        </div>
+
+        <nz-divider *nzSpaceItem nzType="vertical"></nz-divider>
+
+        <div class="image__main-meta-timestamp" *nzSpaceItem>
+          {{ formatTimestamp(image.createdAt) }}
+        </div>
+      </nz-space>
+
+      <img
+        nz-image
+        *nzSpaceItem
+        class="image__main-image"
+        [nzSrc]="image.imagePublicURL"
+        [alt]="image.imageTitle || 'Зображення'"
+      />
+    </nz-space>
+
+    <nz-space class="image__sidebar" nzDirection="vertical" nzSize="middle">
+      <nz-space
+        *nzSpaceItem
+        class="image__sidebar-header"
+        nzDirection="horizontal"
+      >
+        <h1 *nzSpaceItem class="image__sidebar-header-title">Коментарі</h1>
+      </nz-space>
+
+      <ng-container *ngIf="user$ | async">
+        <textarea
+          *nzSpaceItem
+          nz-input
+          placeholder="Ваш коментар"
+          [formControl]="commentFormControl"
+          [nzAutosize]="{minRows: 2, maxRows: 6}"
+        ></textarea>
+
+        <button
+          [nzLoading]="commentLoading"
+          (click)="submitComment()"
+          [disabled]="commentFormControl.invalid"
+          *nzSpaceItem
+          nz-button
+          nzType="primary"
+          nzBlock
+        >
+          Надіслати
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="comments.length === 0">
+        <nz-empty
+          *nzSpaceItem
+          nzNotFoundContent="Коментарі відсутні"
+        ></nz-empty>
+      </ng-container>
+
+      <ng-container *ngIf="comments.length">
+        <nz-space *nzSpaceItem nzDirection="vertical" nzSize="middle">
+          <ng-container *ngFor="let comment of comments">
+            <nz-comment
+              *nzSpaceItem
+              [nzAuthor]="comment.commentAuthorName"
+              [nzDatetime]="formatTimestamp(comment.createdAt)"
+            >
+              <nz-avatar
+                [routerLink]="['/user', comment.commentAuthorId]"
+                nz-comment-avatar
+                nzIcon="user"
+                [nzSrc]="comment.commentAuthorAvatar"
+              >
+              </nz-avatar>
+
+              <nz-comment-content>
+                <p>{{ comment.commentText }}</p>
+              </nz-comment-content>
+
+              <ng-container *ngIf="(user$ | async) && isCommentAuthor(comment)">
+                <nz-comment-action>
+                  <span (click)="deleteComment(comment)">
+                    <span nz-icon nzType="delete" nzTheme="outline"></span>
+                    Видалити коментар
+                  </span>
+                </nz-comment-action>
+              </ng-container>
+            </nz-comment>
+          </ng-container>
+        </nz-space>
+      </ng-container>
+    </nz-space>
+  </ng-container>
+
+  <ng-template #imageLoadingTemplate>
+    <nz-spin
+      class="image__loading"
+      nzSize="large"
+      nzTip="Завантаження..."
+    ></nz-spin>
+  </ng-template>
+</nz-space>
