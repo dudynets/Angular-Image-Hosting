@@ -114,7 +114,7 @@ export class FeedComponent implements OnInit {
         );
       const categoryMatch =
         categoryValue === AllCategory.All ||
-        image.imageCategory === categoryValue;
+        (image.imageCategory || ImageCategory.Uncategorized) === categoryValue;
 
       return searchMatch && categoryMatch;
     });
