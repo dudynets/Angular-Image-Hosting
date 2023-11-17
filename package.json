@@ -1,6 +1,7 @@
 {
   "name": "image-hosting",
   "version": "1.0.0",
+  "description": "Image hosting app built with Angular and Firebase.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
