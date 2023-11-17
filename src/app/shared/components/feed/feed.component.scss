@@ -5,10 +5,17 @@
 
 .feed {
   display: flex;
+  flex-direction: column;
   width: 100%;
   position: relative;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 32px;
+
+  &__items {
+    display: flex;
+    width: 100%;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
 
   nz-card {
     cursor: pointer;
@@ -29,6 +36,20 @@
 
     @media (max-width: 768px) {
       width: 100% !important;
+    }
+  }
+
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    h3 {
+      margin: 0;
+    }
+
+    .no-title {
+      color: #757575;
     }
   }
 }

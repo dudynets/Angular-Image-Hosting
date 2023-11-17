@@ -3,7 +3,7 @@
     <nz-space
       class="image__main"
       nzDirection="vertical"
-      nzSize="middle"
+      nzSize="small"
       [style.--imageURL]="'url(' + image.imagePublicURL + ')'"
     >
       <nz-space
@@ -87,6 +87,35 @@
             </ng-container>
           </ul>
         </nz-dropdown-menu>
+      </nz-space>
+
+      <nz-space
+        class="image__main-category"
+        *nzSpaceItem
+        nzAlign="center"
+        nzDirection="horizontal"
+      >
+        <h3 *nzSpaceItem>Категорія:</h3>
+
+        <ng-container *ngIf="isImageAuthor">
+          <nz-select *nzSpaceItem [formControl]="categoryFormControl">
+            <ng-container *ngFor="let category of CATEGORY_LABELS">
+              <nz-option
+                [nzValue]="category.value"
+                [nzLabel]="category.label"
+              ></nz-option>
+            </ng-container>
+          </nz-select>
+        </ng-container>
+
+        <ng-container *ngIf="!isImageAuthor">
+          <nz-tag
+            *nzSpaceItem
+            [nzColor]="getCategoryColor(image.imageCategory)"
+          >
+            {{ getCategoryLabel(image.imageCategory) }}
+          </nz-tag>
+        </ng-container>
       </nz-space>
 
       <nz-space class="image__main-meta" *nzSpaceItem nzDirection="horizontal">

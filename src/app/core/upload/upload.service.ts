@@ -10,7 +10,7 @@ import {
 import {v4 as uuidv4} from 'uuid';
 import {imageDataToBase64} from '../../shared/helpers/image-data-to-base64';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {IImage} from '../image/image.model';
+import {IImage, ImageCategory} from '../image/image.model';
 import {Timestamp} from '@firebase/firestore';
 
 @Injectable({
@@ -52,6 +52,7 @@ export class UploadService {
         imageAuthorName: user.displayName || '',
         imageAuthorAvatar: user.photoURL || '',
         imagePublicURL: downloadUrl,
+        imageCategory: ImageCategory.Uncategorized,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
       };

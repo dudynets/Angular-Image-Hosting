@@ -21,6 +21,10 @@ import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzSpinModule} from 'ng-zorro-antd/spin';
 import {NzEmptyModule} from 'ng-zorro-antd/empty';
 import {NzImageModule} from 'ng-zorro-antd/image';
+import {NzTagModule} from 'ng-zorro-antd/tag';
+import {NzInputModule} from 'ng-zorro-antd/input';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,10 @@ import {NzImageModule} from 'ng-zorro-antd/image';
     NzSpinModule,
     NzEmptyModule,
     NzImageModule,
+    NzTagModule,
+    NzInputModule,
+    NzSelectModule,
+    ReactiveFormsModule,
   ],
   exports: [HeaderComponent, FooterComponent, UploaderComponent, FeedComponent],
 })

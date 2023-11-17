@@ -9,7 +9,7 @@ import {
 } from '@angular/fire/firestore';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {Router} from '@angular/router';
-import {IImage} from './image.model';
+import {IImage, ImageCategory} from './image.model';
 import {deleteObject, ref, Storage} from '@angular/fire/storage';
 import {Auth} from '@angular/fire/auth';
 
@@ -52,6 +52,22 @@ export class ImageService {
     } catch (error) {
       this.message.remove();
       this.message.error('Помилка оновлення назви зображення!');
+    }
+  }
+
+  async updateImageCategory(
+    imageId: string,
+    imageCategory: ImageCategory,
+  ): Promise<void> {
+    try {
+      const imagesCollection = collection(this.firestore, 'images');
+      const imageDocument = doc(imagesCollection, imageId);
+      await updateDoc(imageDocument, {imageCategory});
+      this.message.remove();
+      this.message.success('Категорія зображення успішно оновлена!');
+    } catch (error) {
+      this.message.remove();
+      this.message.error('Помилка оновлення категорії зображення!');
     }
   }
 

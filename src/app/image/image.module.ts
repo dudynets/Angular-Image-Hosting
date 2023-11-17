@@ -4,7 +4,7 @@ import {ImageRoutingModule} from './image-routing.module';
 import {ImageComponent} from './image.component';
 import {NzSpaceModule} from 'ng-zorro-antd/space';
 import {NzSpinModule} from 'ng-zorro-antd/spin';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
@@ -18,6 +18,8 @@ import {NzEmptyModule} from 'ng-zorro-antd/empty';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzImageModule} from 'ng-zorro-antd/image';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {NzTagModule} from 'ng-zorro-antd/tag';
 
 @NgModule({
   declarations: [ImageComponent],
@@ -40,6 +42,9 @@ import {NzImageModule} from 'ng-zorro-antd/image';
     NzDividerModule,
     NzCardModule,
     NzImageModule,
+    NzSelectModule,
+    FormsModule,
+    NzTagModule,
   ],
 })
 export class ImageModule {}

@@ -6,7 +6,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import {IImage} from '../core/image/image.model';
+import {
+  CATEGORY_LABELS,
+  IImage,
+  ImageCategory,
+  UNCATEGORIZED_COLOR,
+  UNCATEGORIZED_LABEL,
+} from '../core/image/image.model';
 import {ImageService} from '../core/image/image.service';
 import {Auth, User} from '@angular/fire/auth';
 import {FormControl, Validators} from '@angular/forms';
@@ -41,6 +47,9 @@ export class ImageComponent implements OnInit {
   likesCount = 0;
 
   titleFormControl = new FormControl<string | undefined>(undefined);
+  categoryFormControl = new FormControl<ImageCategory>(
+    ImageCategory.Uncategorized,
+  );
   commentFormControl = new FormControl<string | undefined>(undefined, [
     Validators.required,
   ]);
@@ -59,6 +68,8 @@ export class ImageComponent implements OnInit {
   private readonly commentsService: CommentsService = inject(CommentsService);
   private readonly likeService: LikeService = inject(LikeService);
 
+  protected readonly CATEGORY_LABELS = CATEGORY_LABELS;
+
   get comments(): IComment[] {
     return this._comments.sort((a, b) => {
       return b.createdAt.seconds - a.createdAt.seconds;
@@ -76,6 +87,13 @@ export class ImageComponent implements OnInit {
           imageTitle || '',
         );
       });
+
+    this.categoryFormControl.valueChanges.subscribe(async (imageCategory) => {
+      await this.imageService.updateImageCategory(
+        this.imageId,
+        imageCategory || ImageCategory.Uncategorized,
+      );
+    });
   }
 
   async loadImage(): Promise<void> {
@@ -94,6 +112,12 @@ export class ImageComponent implements OnInit {
       this.likesCount = likes.likesCount;
       this.isImageLiked = likes.liked;
       this.titleFormControl.setValue(image.imageTitle, {emitEvent: false});
+      this.categoryFormControl.setValue(
+        image.imageCategory || ImageCategory.Uncategorized,
+        {
+          emitEvent: false,
+        },
+      );
       this.cdr.detectChanges();
     };
   }
@@ -182,5 +206,19 @@ export class ImageComponent implements OnInit {
     }
     this.likeLoading = false;
     this.cdr.detectChanges();
+  }
+
+  getCategoryColor(imageCategory: ImageCategory): string {
+    return (
+      CATEGORY_LABELS.find((category) => category.value === imageCategory)
+        ?.color || UNCATEGORIZED_COLOR
+    );
+  }
+
+  getCategoryLabel(imageCategory: ImageCategory): string {
+    return (
+      CATEGORY_LABELS.find((category) => category.value === imageCategory)
+        ?.label || UNCATEGORIZED_LABEL
+    );
   }
 }

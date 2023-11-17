@@ -1,39 +1,86 @@
 <div class="feed">
   <ng-container *ngIf="!loading">
-    <ng-container *ngFor="let image of images">
-      <nz-card
-        [style.--imageURL]="'url(' + image.imagePublicURL + ')'"
-        class="feed__card"
-        [routerLink]="['/image', image.imageId]"
-        style="width: 300px"
-        [nzCover]="coverTemplate"
+    <div class="feed__filters">
+      <nz-input-group
+        [nzAddOnBefore]="categorySelect"
+        [nzPrefix]="prefixIconSearch"
       >
-        <nz-card-meta
-          [nzTitle]="image.imageTitle || 'Без назви'"
-          [nzDescription]="image.imageAuthorName"
-          [nzAvatar]="avatarTemplate"
-        ></nz-card-meta>
-      </nz-card>
-
-      <ng-template #avatarTemplate>
-        <nz-avatar [nzSrc]="image.imageAuthorAvatar"></nz-avatar>
-      </ng-template>
-      <ng-template #coverTemplate>
-        <img
-          nzDisablePreview
-          nz-image
-          [alt]="image.imageTitle || 'Зображення'"
-          [nzSrc]="image.imagePublicURL"
+        <input
+          type="text"
+          nz-input
+          placeholder="Введіть пошуковий термін..."
+          [formControl]="searchFormControl"
         />
+      </nz-input-group>
+
+      <ng-template #prefixIconSearch>
+        <span nz-icon nzType="search"></span>
       </ng-template>
-    </ng-container>
+
+      <ng-template #categorySelect>
+        <nz-select
+          [nzDropdownMatchSelectWidth]="false"
+          [formControl]="categoryFormControl"
+        >
+          <nz-option nzValue="all" nzLabel="Всі"></nz-option>
+
+          <ng-container *ngFor="let category of CATEGORY_LABELS">
+            <nz-option
+              [nzValue]="category.value"
+              [nzLabel]="category.label"
+            ></nz-option>
+          </ng-container>
+        </nz-select>
+      </ng-template>
+    </div>
+
+    <div class="feed__items">
+      <ng-container *ngFor="let image of filteredImages">
+        <nz-card
+          [style.--imageURL]="'url(' + image.imagePublicURL + ')'"
+          class="feed__card"
+          [routerLink]="['/image', image.imageId]"
+          style="width: 300px"
+          [nzCover]="coverTemplate"
+        >
+          <nz-card-meta
+            [nzTitle]="cardTitleTemplate"
+            [nzDescription]="image.imageAuthorName"
+            [nzAvatar]="avatarTemplate"
+          ></nz-card-meta>
+
+          <ng-template #cardTitleTemplate>
+            <div class="card-title">
+              <h3 [class.no-title]="!image.imageTitle">
+                {{ image.imageTitle || 'Без назви' }}
+              </h3>
+              <nz-tag [nzColor]="getCategoryColor(image.imageCategory)">
+                {{ getCategoryLabel(image.imageCategory) }}
+              </nz-tag>
+            </div>
+          </ng-template>
+        </nz-card>
+
+        <ng-template #avatarTemplate>
+          <nz-avatar [nzSrc]="image.imageAuthorAvatar"></nz-avatar>
+        </ng-template>
+        <ng-template #coverTemplate>
+          <img
+            nzDisablePreview
+            nz-image
+            [alt]="image.imageTitle || 'Зображення'"
+            [nzSrc]="image.imagePublicURL"
+          />
+        </ng-template>
+      </ng-container>
+    </div>
   </ng-container>
 
   <ng-container *ngIf="loading">
     <nz-spin nzSimple nzTip="Завантаження..." [nzSize]="'large'"></nz-spin>
   </ng-container>
 
-  <ng-container *ngIf="!loading && images.length === 0">
+  <ng-container *ngIf="!loading && filteredImages.length === 0">
     <nz-empty nzNotFoundContent="Зображенння відсутні"></nz-empty>
   </ng-container>
 </div>

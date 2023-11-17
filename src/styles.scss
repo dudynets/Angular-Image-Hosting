@@ -209,3 +209,17 @@ body {
   user-select: none;
   overscroll-behavior: none;
 }
+
+.image__main-category {
+  .ant-space-item:has(.ant-select) {
+    flex: 1;
+  }
+
+  .ant-select {
+    width: 100%;
+  }
+}
+
+.ant-space-item:has(ih-feed) {
+  overflow: visible;
+}
