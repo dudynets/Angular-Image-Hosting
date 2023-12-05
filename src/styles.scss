@@ -223,3 +223,15 @@ body {
 .ant-space-item:has(ih-feed) {
   overflow: visible;
 }
+
+.avatar-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}

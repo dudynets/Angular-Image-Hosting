@@ -28,26 +28,29 @@
           Вподобані
         </button>
 
-        <nz-avatar
+        <img
           *nzSpaceItem
-          nzIcon="user"
-          [nzSrc]="user.photoURL || undefined"
+          [alt]="user.displayName + ' avatar'"
+          class="avatar-small"
+          [src]="user.photoURL || undefined"
+          referrerpolicy="no-referrer"
           nz-popover
           [nzPopoverContent]="userInfoPopoverTemplate"
           nzPopoverPlacement="bottomRight"
           [nzPopoverArrowPointAtCenter]="false"
-        ></nz-avatar>
+        />
 
         <ng-template #userInfoPopoverTemplate>
           <div class="user-info-popover">
             <nz-space nzDirection="vertical">
               <nz-space *nzSpaceItem nzSize="middle" nzAlign="center">
-                <nz-avatar
+                <img
                   *nzSpaceItem
-                  nzSize="large"
-                  nzIcon="user"
-                  [nzSrc]="user.photoURL || undefined"
-                ></nz-avatar>
+                  [alt]="user.displayName + ' avatar'"
+                  class="avatar-large"
+                  [src]="user.photoURL || undefined"
+                  referrerpolicy="no-referrer"
+                />
 
                 <h3 *nzSpaceItem>Привіт,<br />{{ user.displayName }}</h3>
               </nz-space>

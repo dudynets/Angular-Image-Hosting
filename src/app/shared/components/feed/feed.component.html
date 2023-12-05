@@ -62,7 +62,12 @@
         </nz-card>
 
         <ng-template #avatarTemplate>
-          <nz-avatar [nzSrc]="image.imageAuthorAvatar"></nz-avatar>
+          <img
+            [alt]="image.imageAuthorName + ' avatar'"
+            class="avatar-small"
+            [src]="image.imageAuthorAvatar || undefined"
+            referrerpolicy="no-referrer"
+          />
         </ng-template>
         <ng-template #coverTemplate>
           <img

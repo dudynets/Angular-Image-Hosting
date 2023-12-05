@@ -1,0 +1,11 @@
+version: '3'
+services:
+  client:
+    container_name: image-hosting-client
+    build:
+      context: .
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+    working_dir: /app

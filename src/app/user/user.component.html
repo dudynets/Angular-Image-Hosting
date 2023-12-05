@@ -2,10 +2,12 @@
   <ng-container *ngIf="!loading && user; else loadingTemplate">
     <nz-space class="user__feed" nzDirection="vertical">
       <div *nzSpaceItem class="user__feed-info">
-        <nz-avatar
-          [nzSrc]="user.userPhotoURL || undefined"
-          nzSize="large"
-        ></nz-avatar>
+        <img
+          [alt]="user.userDisplayName + ' avatar'"
+          class="avatar-large"
+          [src]="user.userPhotoURL || undefined"
+          referrerpolicy="no-referrer"
+        />
 
         <div class="user__feed-info-details">
           <h1>

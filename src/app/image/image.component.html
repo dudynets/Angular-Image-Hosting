@@ -124,10 +124,12 @@
           [routerLink]="['/user', image.imageAuthorId]"
           *nzSpaceItem
         >
-          <nz-avatar
-            nz-icon="user"
-            [nzSrc]="image.imageAuthorAvatar"
-          ></nz-avatar>
+          <img
+            [alt]="image.imageAuthorName + ' avatar'"
+            class="avatar-small"
+            [src]="image.imageAuthorAvatar || undefined"
+            referrerpolicy="no-referrer"
+          />
 
           <span>{{ image.imageAuthorName }}</span>
         </div>
@@ -189,6 +191,12 @@
       <ng-container *ngIf="comments.length">
         <nz-space *nzSpaceItem nzDirection="vertical" nzSize="middle">
           <ng-container *ngFor="let comment of comments">
+            <img
+              style="display: none"
+              [src]="comment.commentAuthorAvatar || undefined"
+              referrerpolicy="no-referrer"
+            />
+
             <nz-comment
               *nzSpaceItem
               [nzAuthor]="comment.commentAuthorName"
