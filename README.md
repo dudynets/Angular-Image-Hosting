@@ -46,6 +46,29 @@ yarn start
 ```
 10. Open the app in a browser at http://localhost:4200, login with Google and create a new user.
 
+
+## Run Using Docker
+
+1. Clone the repository.
+```sh
+git clone https://github.com/dudynets/Angular-Image-Hosting
+```
+2. Create a new Firebase project in the [Firebase console](https://console.firebase.google.com/).
+   1. Enable the Authentication service in the Firebase console and add a Google authentication provider.
+   2. Enable the Firestore database in the Firebase console.
+   3. Enable the Cloud Storage service in the Firebase console.
+   4. Enable the Firebase Hosting service in the Firebase console.
+3. Add a new web app to the project in the Firebase console.
+   1. Create a `config.ts` file in the root directory of the project and copy the contents of the `config.example.ts` file into it (you can also rename the `config.example.ts` file to `config.ts`).
+   2. Copy the Firebase config from the Firebase console into the `config.ts` file.
+4. Create a [Syncfusion account](https://www.syncfusion.com/) and get a free Community license key or a free trial license key.
+   1. Copy the Syncfusion license key into the `config.ts` file.
+5. Run the docker-compose file.
+```sh
+docker-compose up
+```
+6. Open the app in a browser at http://localhost, login with Google and create a new user.
+
 ## Deployment Steps
 
 1. Complete all steps from the [Run Steps](#run-steps) section.
